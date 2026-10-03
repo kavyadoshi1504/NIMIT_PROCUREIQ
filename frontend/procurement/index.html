@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procurement</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="project-name">ProcureIQ</div>
+        <img src="/logo" alt="Company Logo" class="company-logo">
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="menu-section">
+                <button class="main-menu active" data-section="workspace">Workspace</button>
+                <div class="submenu open" id="workspace">
+                    <button class="submenu-item active" data-page="purchase-requests">Purchase Requests</button>
+                    <button class="submenu-item" data-page="vendor-inquiries">Vendor Inquiries</button>
+                    <button class="submenu-item" data-page="quotation-comparisons">Quotation & Comparisons</button>
+                    <button class="submenu-item" data-page="purchase-orders">Purchase Orders</button>
+                    <button class="submenu-item" data-page="order-tracking">Order Tracking</button>
+                    <button class="submenu-item" data-page="goods-received">Goods Received</button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <button class="main-menu" data-section="vendors">Vendors</button>
+                <div class="submenu" id="vendors">
+                    <button class="submenu-item" data-page="vendor-masters">Vendor/OEM Masters</button>
+                    <button class="submenu-item" data-page="vendor-performance">Vendor Performance</button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <button class="main-menu" data-section="intelligence">Intelligence</button>
+                <div class="submenu" id="intelligence">
+                    <button class="submenu-item" data-page="past-price-reference">Past Price Reference</button>
+                </div>
+            </div>
+
+            <button id="logoutButton" class="logout-button">Logout</button>
+        </aside>
+
+        <main class="content">
+            <div id="purchaseRequestsPage" class="page">
+                <h1>Purchase Requests</h1>
+
+                <div class="pr-options">
+                    <button id="manualButton" class="option-button active">Manual Entry</button>
+                    <button id="excelButton" class="option-button">Excel Import</button>
+                </div>
+
+                <section id="manualSection" class="entry-section">
+                    <form id="manualForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>PR Date</label>
+                                <input type="date" id="pr_date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Party Name</label>
+                                <input type="text" id="party_name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" id="location" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Territory</label>
+                                <input type="text" id="territory" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Product Category</label>
+                                <input type="text" id="product_category" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Item Name</label>
+                                <input type="text" id="item_name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Make</label>
+                                <input type="text" id="make" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Model</label>
+                                <input type="text" id="model" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" id="qty" min="1" step="0.01" value="0" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Unit</label>
+                                <select id="unit" required>
+                                    <option value="number" selected>Number</option>
+                                    <option value="set">Set</option>
+                                    <option value="meter">Meter</option>
+                                    <option value="lot">Lot</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Sales Rate</label>
+                                <input type="number" id="sales_rate" min="1" step="0.01" value="0" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Taxable Value</label>
+                                <input type="number" id="taxable_value" readonly value="0.00">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Product Remarks</label>
+                                <textarea id="product_remarks"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="primary-button">Add Purchase Request</button>
+                    </form>
+                </section>
+
+                <section id="excelSection" class="entry-section hidden">
+                    <div class="excel-upload">
+                        <label for="excelFile" class="file-label">Choose Excel File</label>
+                        <input type="file" id="excelFile" accept=".xlsx,.xls">
+                        <span id="excelFileName" class="file-name">No file chosen</span>
+                        <button id="importButton" class="primary-button">Import Excel</button>
+                    </div>
+
+                    <div id="excelPreview" class="preview-container hidden">
+                        <h2>Imported Rows</h2>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>PR Date</th>
+                                        <th>Party Name</th>
+                                        <th>Location</th>
+                                        <th>Territory</th>
+                                        <th>Product Category</th>
+                                        <th>Item Name</th>
+                                        <th>Product Remarks</th>
+                                        <th>Make</th>
+                                        <th>Model</th>
+                                        <th>Qty</th>
+                                        <th>Unit</th>
+                                        <th>Sales Rate</th>
+                                        <th>Taxable Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="previewBody"></tbody>
+                            </table>
+                        </div>
+
+                        <button id="saveImportedButton" class="primary-button">
+                            Save Purchase Requests
+                        </button>
+                    </div>
+                </section>
+
+                <div id="message" class="message"></div>
+            </div>
+            <div id="vendorMastersPage" class="page hidden">
+                <h1>Vendor/OEM Masters</h1>
+
+                <div class="pr-options">
+                    <button id="vendorManualButton" class="option-button active">Manual Entry</button>
+                    <button id="vendorExcelButton" class="option-button">Excel Import</button>
+                </div>
+
+                <section id="vendorManualSection" class="entry-section">
+                    <form id="vendorManualForm">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Basic Details</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Registration Date</label>
+                                    <input type="date" id="registration_date">
+                                </div>
+                                <div class="form-group">
+                                    <label>Vendor Name</label>
+                                    <input type="text" id="vendor_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Legal Entity</label>
+                                    <select id="legal_entity">
+                                        <option value="">Select</option>
+                                        <option>Proprietory</option>
+                                        <option>Partnership</option>
+                                        <option>Private Limited</option>
+                                        <option>Public Limited</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Commercial Role</label>
+                                    <select id="commercial_role">
+                                        <option value="">Select</option>
+                                        <option>Trader</option>
+                                        <option>Manufacturer</option>
+                                        <option>Dealer</option>
+                                        <option>Distributor</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Year of Incorporation</label>
+                                    <input type="text" id="year_of_incorporation">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Address with Phone Numbers</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Office Address</label>
+                                    <input type="text" id="office_address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Office Contact Name</label>
+                                    <input type="text" id="office_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Office Contact Number</label>
+                                    <input type="text" id="office_phone">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Factory Address</label>
+                                    <input type="text" id="factory_address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Factory Contact Name</label>
+                                    <input type="text" id="factory_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Factory Contact Number</label>
+                                    <input type="text" id="factory_phone">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Warehouse Address</label>
+                                    <input type="text" id="warehouse_address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Warehouse Contact Name</label>
+                                    <input type="text" id="warehouse_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Warehouse Contact Number</label>
+                                    <input type="text" id="warehouse_phone">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Workshop Address</label>
+                                    <input type="text" id="workshop_address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Workshop Contact Name</label>
+                                    <input type="text" id="workshop_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Workshop Contact Number</label>
+                                    <input type="text" id="workshop_phone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Director / CEO / Management Team</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" id="director_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Designation</label>
+                                    <input type="text" id="director_designation">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile No.</label>
+                                    <input type="text" id="director_mobile">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" id="director_email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Web Address</label>
+                                    <input type="text" id="director_web">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Sales Team</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" id="sales_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact</label>
+                                    <input type="text" id="sales_contact">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" id="sales_email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Accounts Team</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" id="accounts_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact</label>
+                                    <input type="text" id="accounts_contact">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" id="accounts_email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Tax &amp; Registration</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>GST Number</label>
+                                    <input type="text" id="gst_number">
+                                </div>
+                                <div class="form-group">
+                                    <label>PAN Number</label>
+                                    <input type="text" id="pan_number">
+                                </div>
+                                <div class="form-group">
+                                    <label>MSME Number</label>
+                                    <input type="text" id="msme_number">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Bank Details</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Bank Name</label>
+                                    <input type="text" id="bank_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Account No.</label>
+                                    <input type="text" id="account_no">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch Details</label>
+                                    <input type="text" id="bank_branch">
+                                </div>
+                                <div class="form-group">
+                                    <label>Type of Account</label>
+                                    <input type="text" id="account_type">
+                                </div>
+                                <div class="form-group">
+                                    <label>IFSC/RTGS Code</label>
+                                    <input type="text" id="ifsc_rtgs">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Branch Offices</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Branch 1 Address</label>
+                                    <input type="text" id="branch1_address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch 1 Contact Name</label>
+                                    <input type="text" id="branch1_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch 1 Contact Number</label>
+                                    <input type="text" id="branch1_contact">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Branch 2 Address</label>
+                                    <input type="text" id="branch2_address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch 2 Contact Name</label>
+                                    <input type="text" id="branch2_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch 2 Contact Number</label>
+                                    <input type="text" id="branch2_contact">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Branch 3 Address</label>
+                                    <input type="text" id="branch3_address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch 3 Contact Name</label>
+                                    <input type="text" id="branch3_name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch 3 Contact Number</label>
+                                    <input type="text" id="branch3_contact">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Turnover of Last Three Years</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>26-27 Turnover</label>
+                                    <input type="text" id="turnover_value_1">
+                                </div>
+                                <div class="form-group">
+                                    <label>25-26 Turnover</label>
+                                    <input type="text" id="turnover_value_2">
+                                </div>
+                                <div class="form-group">
+                                    <label>24-25 Turnover</label>
+                                    <input type="text" id="turnover_value_3">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">Documents</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>GST Document</label>
+                                    <input type="file" id="gst_document">
+                                </div>
+                                <div class="form-group">
+                                    <label>PAN Document</label>
+                                    <input type="file" id="pan_document">
+                                </div>
+                                <div class="form-group">
+                                    <label>MSME Document</label>
+                                    <input type="file" id="msme_document">
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Year ITR</label>
+                                    <input type="file" id="itr_last_year_document">
+                                </div>
+                                <div class="form-group">
+                                    <label>Second Last Year ITR</label>
+                                    <input type="file" id="itr_second_last_year_document">
+                                </div>
+                                <div class="form-group">
+                                    <label>Third Last Year ITR</label>
+                                    <input type="file" id="itr_third_last_year_document">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">For Office Use Only</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Recommended By</label>
+                                    <input type="text" id="recommended_by">
+                                </div>
+                                <div class="form-group">
+                                    <label>Approved By</label>
+                                    <input type="text" id="approved_by">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="primary-button">Add Vendor</button>
+                    </form>
+                </section>
+
+                <section id="vendorExcelSection" class="entry-section hidden">
+                    <div class="excel-upload">
+                        <label for="vendorExcelFile" class="file-label">Choose Excel File</label>
+                        <input type="file" id="vendorExcelFile" accept=".xlsx,.xls">
+                        <span id="vendorExcelFileName" class="file-name">No file chosen</span>
+                        <button id="vendorImportButton" class="primary-button">Import Excel</button>
+                    </div>
+
+                    <div id="vendorExcelPreview" class="preview-container hidden">
+                        <h2>Vendor Preview</h2>
+                        <div id="vendorPreviewForm" class="form-grid"></div>
+                            <div class="form-section">
+                                <h3 class="form-section-title">Documents</h3>
+                                <div class="vendor-documents">
+                                    <div class="form-group">
+                                        <label>GST Document</label>
+                                        <input type="file" id="excel_gst_document">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PAN Document</label>
+                                        <input type="file" id="excel_pan_document">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>MSME Document</label>
+                                        <input type="file" id="excel_msme_document">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Year ITR</label>
+                                        <input type="file" id="excel_itr_last_year_document">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Second Last Year ITR</label>
+                                        <input type="file" id="excel_itr_second_last_year_document">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Third Last Year ITR</label>
+                                        <input type="file" id="excel_itr_third_last_year_document">
+                                    </div>
+                                </div>
+                            </div>
+                        <button id="saveVendorExcelButton" class="primary-button">Save Vendor</button>
+                    </div>
+                </section>
+
+                <div id="vendorMessage" class="message"></div>
+            </div>
+            <div id="vendorPerformancePage" class="page hidden">
+                <h1>Vendor Performance</h1>
+                <div id="vendorPerformanceMessage" class="message"></div>
+                <div id="vendorPerformanceList"></div>
+            </div>
+            <div id="quotationComparisonsPage" class="page hidden">
+                <h1>Quotation & Comparisons</h1>
+                <section class="entry-section">
+                    <div id="quotationList" class="inquiry-list">
+                        Loading...
+                    </div>
+                </section>
+            </div>           
+            <div id="vendorInquiriesPage" class="page hidden">
+                <h1>Vendor Inquiries</h1>
+
+                <section class="entry-section">
+                    <div id="vendorInquiryList" class="inquiry-list">
+                        Loading inquiries...
+                    </div>
+                </section>
+            </div>
+            <div id="orderTrackingPage" class="page hidden">
+                <h1>Order Tracking</h1>
+
+                <section class="entry-section">
+                    <div id="orderTrackingList" class="inquiry-list">
+                        Loading...
+                    </div>
+
+                    <div class="pagination-controls">
+                        <button id="orderTrackingPrev" class="option-button" disabled>&larr; Previous 10</button>
+                        <span id="orderTrackingPageLabel" class="page-label">Page 1</span>
+                        <button id="orderTrackingNext" class="option-button" disabled>Next 10 &rarr;</button>
+                    </div>
+                </section>
+            </div>
+            <div id="goodsReceivedPage" class="page hidden">
+                <h1>Goods Received</h1>
+
+                <div id="goodsReceivedMessage" class="message"></div>
+
+                <div id="goodsReceivedList" class="goods-received-list"></div>
+            </div>
+            <div id="purchaseOrdersPage" class="page hidden">
+                <h1>Purchase Orders</h1>
+
+                <section class="entry-section">
+                    <div id="purchaseOrdersList" class="inquiry-list">
+                        Loading...
+                    </div>
+                </section>
+            </div>
+            <div id="pastPriceReferencePage" class="page hidden">
+                <h1>Past Price Reference</h1>
+
+                <section class="entry-section">
+                    <div class="ppr-search-wrap">
+                        <input
+                            type="text"
+                            id="pprSearchInput"
+                            class="ppr-search-input"
+                            placeholder="Type model name or product name to search..."
+                            autocomplete="off"
+                        >
+                        <div id="pprDropdown" class="ppr-dropdown hidden"></div>
+                    </div>
+
+                    <div id="pprSelectedLabel" class="ppr-selected-label hidden"></div>
+                    <div id="pprMessage" class="message"></div>
+                    <div id="pprResults" class="ppr-results"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

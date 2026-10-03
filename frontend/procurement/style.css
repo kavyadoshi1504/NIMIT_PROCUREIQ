@@ -1,0 +1,1272 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f6f8;
+    color: #222;
+}
+
+.topbar {
+    height: 70px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+}
+
+.project-name {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.company-logo {
+    height: 24px;
+    width: auto;
+    object-fit: contain;
+}
+
+.layout {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 270px;
+    height: 100%;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-right: 1px solid #ddd;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.menu-section {
+    margin-bottom: 8px;
+}
+
+.main-menu {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.main-menu:hover,
+.main-menu.active {
+    background: #eef1f5;
+}
+
+.submenu {
+    display: none;
+    padding-left: 12px;
+}
+
+.submenu.open {
+    display: block;
+}
+
+.submenu-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.submenu-item:hover:not(.disabled),
+.submenu-item.active {
+    background: #e8edf3;
+}
+
+.submenu-item.disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.logout-button {
+    margin-top: auto;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: #444;
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+    overflow: auto;
+}
+
+.page h1 {
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+.pr-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.option-button {
+    padding: 11px 20px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.option-button.active {
+    background: #222;
+    color: white;
+    border-color: #222;
+}
+
+.entry-section {
+    background: white;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.primary-button {
+    margin-top: 22px;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.primary-button:hover {
+    background: #444;
+}
+
+.excel-upload {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.file-label {
+    height: 49px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fafafa;
+}
+
+.excel-upload .primary-button {
+    height: 49px;
+    margin-top: 0;
+}
+
+#excelFile,
+#vendorExcelFile {
+    display: none;
+}
+
+.preview-container {
+    margin-top: 30px;
+}
+
+.preview-container h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1500px;
+}
+
+th,
+td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 13px;
+}
+
+th {
+    background: #f1f2f4;
+    font-weight: 600;
+}
+
+td input {
+    width: 100%;
+    min-width: 100px;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+td input.taxable-input {
+    background: #f3f3f3;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.vendor-documents {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.file-name {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #555;
+}
+
+/* ─── Vendor Inquiry List ──────────────────────────────────────────────────── */
+
+.inquiry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/*
+ * Card is now a column so the info grid, vendor table, and footer
+ * stack vertically with no overlap.
+ */
+.inquiry-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Info grid: all fields across the top */
+.inquiry-card-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 25px;
+}
+
+.inquiry-card-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.inquiry-card-label {
+    font-size: 12px;
+    color: #777;
+    font-weight: 600;
+}
+
+.inquiry-card-value {
+    font-size: 14px;
+}
+
+/*
+ * Divider between the info grid and the footer row
+ */
+.inquiry-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;   /* button sits on the left */
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #eee;
+}
+
+/* "Add Vendor" button inside footer — no extra top margin needed */
+.inquiry-card-footer .add-vendor-btn {
+    margin-top: 0;
+}
+
+/* Inline form that slides open below the footer */
+.add-vendor-form {
+    margin-top: 16px;
+    padding: 18px;
+    background: #f9fafc;
+    border: 1px solid #e0e4ea;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.add-vendor-form h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.add-vendor-form .form-group {
+    gap: 6px;
+}
+
+.add-vendor-form .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.add-vendor-form .form-group input,
+.add-vendor-form .form-group select,
+.add-vendor-form .form-group textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 9px 10px;
+    font-size: 14px;
+}
+
+.add-vendor-form textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.add-vendor-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.add-vendor-form-actions .save-vendor-btn {
+    margin-top: 0;
+}
+
+.cancel-vendor-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    padding: 0;
+}
+
+.cancel-vendor-btn:hover {
+    color: #222;
+    text-decoration: underline;
+}
+
+.vendor-form-message {
+    font-size: 13px;
+    color: #444;
+    min-height: 18px;
+}
+
+/* Vendor quotation table rendered inside each card */
+.inquiry-vendor-section {
+    margin-top: 16px;
+}
+
+.inquiry-vendor-section .table-container {
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.inquiry-vendor-table {
+    min-width: 600px;
+}
+
+.inquiry-vendor-table th,
+.inquiry-vendor-table td {
+    padding: 10px 12px;
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+.inquiry-vendor-table th {
+    background: #f1f2f4;
+}
+
+/* ─── Misc ──────────────────────────────────────────────────────────────────── */
+
+.inquiry-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 5px;
+    background: #eef1f5;
+    white-space: nowrap;
+}
+
+.no-vendors-note {
+    font-size: 13px;
+    color: #999;
+    font-style: italic;
+}
+
+.lowest-price {
+    color: #1a7f3c;
+    font-weight: 700;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.pagination-controls .option-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.page-label {
+    font-size: 14px;
+    color: #555;
+    min-width: 70px;
+    text-align: center;
+}
+
+.inquiry-status.status-open {
+    background: #eaf3ff;
+    color: #1a5bb8;
+}
+
+.inquiry-status.status-vendor_selected {
+    background: #fff4e0;
+    color: #a35c00;
+}
+
+.inquiry-status.status-closed {
+    background: #e9f7ee;
+    color: #1a7f3c;
+}
+
+.vendor-details-btn {
+    padding: 8px 16px;
+    border: 1px solid #222;
+    background: white;
+    color: #222;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.vendor-details-btn:hover {
+    background: #f0f0f0;
+}
+
+.vendor-details-panel {
+    margin-top: 16px;
+    padding: 18px;
+    background: #f9fafc;
+    border: 1px solid #e0e4ea;
+    border-radius: 6px;
+    display: none;
+}
+
+.vendor-details-panel.open {
+    display: block;
+}
+
+.vendor-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.vendor-details-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.vendor-details-label {
+    font-size: 12px;
+    color: #777;
+    font-weight: 600;
+}
+
+.vendor-details-value {
+    font-size: 14px;
+}
+
+/* ─── Purchase Orders: Collapsed Row ────────────────────────────────────────── */
+
+.po-row {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.po-row-summary {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 16px 20px;
+}
+
+.po-row-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 120px;
+}
+
+.expand-po-btn {
+    margin-left: auto;
+    padding: 8px 18px;
+    border: 1px solid #222;
+    background: white;
+    color: #222;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.expand-po-btn:hover {
+    background: #f0f0f0;
+}
+
+.po-row-detail {
+    border-top: 1px solid #eee;
+    padding: 20px;
+}
+
+/* ─── Purchase Orders footer alignment ────────────────────── */
+
+.po-row-detail .inquiry-card-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #eee;
+}
+
+/* Kill the top margin that primary-button adds when inside PO footer */
+.po-row-detail .inquiry-card-footer .primary-button,
+.po-row-detail .inquiry-card-footer .secondary-button,
+.po-row-detail .inquiry-card-footer .danger-button {
+    margin-top: 0;
+    padding: 9px 16px;
+    font-size: 13px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+/* Status badge sits at the end */
+.po-row-detail .inquiry-card-footer .inquiry-status {
+    margin-left: auto;
+}
+
+/* PI actions container inline */
+.po-row-detail .pi-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.po-row-detail .pi-actions .secondary-button,
+.po-row-detail .pi-actions label.secondary-button {
+    margin-top: 0;
+    padding: 9px 16px;
+    font-size: 13px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* ─── Vendor form sections ─────────────────────────────────────────────────── */
+
+.form-section {
+    padding: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e4ea;
+    border-radius: 8px;
+    background: #fafbfc;
+}
+
+.form-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e6e9ee;
+}
+
+.form-section .vendor-documents {
+    margin-top: 0;
+}
+
+/* ─── Goods Received ─────────────────────────────────────────────────────── */
+
+.goods-received-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.goods-received-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.goods-received-header {
+    margin-bottom: 18px;
+}
+
+.goods-received-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.goods-received-info > div,
+.goods-received-stats > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.goods-received-label {
+    font-size: 12px;
+    color: #777;
+    font-weight: 600;
+}
+
+.goods-received-stats {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    padding: 16px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.goods-progress-section {
+    margin-top: 18px;
+}
+
+.goods-progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    font-size: 13px;
+}
+
+.goods-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.goods-progress-fill {
+    height: 100%;
+    background: #222;
+    border-radius: 999px;
+    transition: width 0.25s ease;
+}
+
+.goods-received-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.goods-received-actions .primary-button,
+.goods-received-actions .secondary-button {
+    margin-top: 0;
+}
+
+.secondary-button {
+    padding: 11px 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    color: #222;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.secondary-button:hover {
+    background: #f0f0f0;
+}
+
+.goods-inline-form {
+    margin-top: 18px;
+    padding: 18px;
+    background: #f9fafc;
+    border: 1px solid #e0e4ea;
+    border-radius: 6px;
+}
+
+.goods-inline-form h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.goods-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.goods-form-actions .primary-button {
+    margin-top: 0;
+}
+
+.goods-history {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #eee;
+}
+
+.goods-history h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.return-history-title {
+    margin-top: 25px;
+}
+
+.goods-history-table {
+    min-width: 700px;
+}
+
+@media (max-width: 900px) {
+    .goods-received-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .goods-received-info,
+    .goods-received-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .goods-received-actions {
+        flex-direction: column;
+    }
+}
+
+.inquiry-status.status-issued {
+    background: #e8f4ff;
+    color: #0066cc;
+}
+
+.inquiry-status.status-completed {
+    background: #e9f7ee;
+    color: #1a7f3c;
+}
+
+.inquiry-status.status-cancelled {
+    background: #fdecea;
+    color: #c0392b;
+}
+
+.inquiry-status.status-draft {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.price-total-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    width: 100%;
+}
+
+/* ─── Vendor Performance ──────────────────────────────────────────────────────── */
+
+#vendorPerformanceList .table-container {
+    margin-top: 16px;
+}
+
+#vendorPerformanceList table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+#vendorPerformanceList thead th {
+    background: #f5f5f5;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #444;
+    border-bottom: 2px solid #e0e0e0;
+    white-space: nowrap;
+}
+
+#vendorPerformanceList tbody tr:not(.vp-detail-row):hover {
+    background: #fafafa;
+}
+
+#vendorPerformanceList tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #efefef;
+    vertical-align: middle;
+    color: #333;
+}
+
+/* ── Drill-down detail row ── */
+
+.vp-detail-row > td {
+    padding: 0 !important;
+    border-bottom: 2px solid #d0d0d0;
+}
+
+.vp-detail-container {
+    padding: 20px 24px;
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* ── KPI strip inside detail panel ── */
+
+.vp-detail-container .inquiry-card-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.vp-detail-container .inquiry-card-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 140px;
+    flex: 1;
+}
+
+.vp-detail-container .inquiry-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.vp-detail-container .inquiry-card-value {
+    font-size: 14px;
+    color: #222;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+/* ── Order history table inside detail panel ── */
+
+.vp-detail-container .table-container {
+    margin-top: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.vp-detail-container .inquiry-vendor-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.vp-detail-container .inquiry-vendor-table thead th {
+    background: #f0f0f0;
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.vp-detail-container .inquiry-vendor-table tbody td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    vertical-align: middle;
+}
+
+.vp-detail-container .inquiry-vendor-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.vp-detail-container .inquiry-vendor-table tbody tr:hover {
+    background: #fafafa;
+}
+
+/* ── On-time badge reuse ── */
+
+.status-open {
+    color: #1a7a3c;
+    font-weight: 600;
+}
+
+.status-cancelled {
+    color: #c0392b;
+    font-weight: 600;
+}
+
+.status-vendor_selected {
+    color: #b07d00;
+    font-weight: 600;
+}
+
+/* ── Details toggle button ── */
+
+.vp-drill-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+    white-space: nowrap;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+    #vendorPerformanceList table {
+        font-size: 12px;
+    }
+
+    #vendorPerformanceList thead th,
+    #vendorPerformanceList tbody td {
+        padding: 8px 10px;
+    }
+
+    .vp-detail-container {
+        padding: 14px 12px;
+    }
+
+    .vp-detail-container .inquiry-card-item {
+        min-width: 110px;
+    }
+}
+
+/* ─── Past Price Reference ────────────────────────────────────────────────────── */
+
+.ppr-search-wrap {
+    position: relative;
+    max-width: 560px;
+    margin-bottom: 24px;
+}
+
+.ppr-search-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+}
+
+.ppr-search-input:focus {
+    border-color: #4a90e2;
+}
+
+/* ── Dropdown ── */
+
+.ppr-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+    z-index: 100;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.ppr-dropdown.hidden {
+    display: none;
+}
+
+.ppr-dropdown-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #f2f2f2;
+    transition: background 0.1s;
+}
+
+.ppr-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.ppr-dropdown-item:hover {
+    background: #f0f6ff;
+}
+
+.ppr-dropdown-model {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+}
+
+.ppr-dropdown-meta {
+    font-size: 12px;
+    color: #888;
+}
+
+.ppr-dropdown-empty {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+}
+
+/* ── Selected label ── */
+
+.ppr-selected-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    background: #f0f6ff;
+    border-left: 3px solid #4a90e2;
+    border-radius: 4px;
+}
+
+.ppr-selected-label.hidden {
+    display: none;
+}
+
+/* ── Section headings ── */
+
+.ppr-section {
+    margin-bottom: 32px;
+}
+
+.ppr-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 14px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+/* ── Last 3 summary cards ── */
+
+.ppr-summary-strip {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.ppr-summary-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ppr-summary-rank {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    letter-spacing: 0.5px;
+}
+
+.ppr-summary-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 10px;
+}
+
+.ppr-summary-field:last-child {
+    margin-bottom: 0;
+}
+
+.ppr-summary-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.ppr-summary-value {
+    font-size: 14px;
+    color: #222;
+    font-weight: 500;
+}
+
+.ppr-summary-value.ppr-rate {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a6fc4;
+}
+
+/* ── Vendor blocks ── */
+
+.ppr-vendor-block {
+    margin-bottom: 24px;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ppr-vendor-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.ppr-vendor-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+}
+
+.ppr-vendor-code {
+    font-size: 12px;
+    color: #777;
+    background: #e8e8e8;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.ppr-vendor-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: #999;
+}
+
+.ppr-vendor-block .table-container {
+    border-radius: 0;
+    border: none;
+}
+
+.ppr-rate-cell {
+    font-weight: 700;
+    color: #1a6fc4;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 768px) {
+    .ppr-search-input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .ppr-summary-strip {
+        flex-direction: column;
+    }
+
+    .ppr-summary-card {
+        max-width: 100%;
+    }
+}
